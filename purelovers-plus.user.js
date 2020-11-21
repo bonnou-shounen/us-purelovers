@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        purelovers-plus
-// @version     v0.0.8
+// @version     v0.0.9
 // @match       https://www.purelovers.com/*
 // ==/UserScript==
 
@@ -48,4 +48,17 @@
    if (mails.length > 0) {
        mails[0].innerHTML = mails[0].innerHTML.replace(/https:\/\/[-a-z0-9./]+/g, '<a href="$&">$&</a>')
    }
+
+    // お気に入りの出勤情報にて同じキャストが表示されるバグに対応
+    if (location.pathname.match(/\/favorite-girl-schedule\//)) {
+        const dup = {}
+        const casts = document.getElementsByClassName('myGirlList')[0].children
+        Array.prototype.slice.call(casts).forEach(function(cast) {
+            const href = cast.getElementsByClassName('bold')[0].getAttribute('href')
+            if (dup[href]) {
+                cast.remove()
+            }
+            dup[href] = 1
+        })
+    }
 })()

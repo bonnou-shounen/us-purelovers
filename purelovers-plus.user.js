@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        purelovers-plus
-// @version     0.0.11
+// @version     0.0.12
 // @match       https://www.purelovers.com/*
 // ==/UserScript==
 
@@ -31,7 +31,7 @@
             1050: 'https://www.club-heart.jp/schedule.html',
             1271: 'https://www.oideyasueden2.com/schedule/',
             1801: 'https://tokyo.happiness-group.com/schedule.html',
-            3734: 'https://www.happiness-dream.com/happiness/schedule.html',
+            3734: 'https://fukuoka.happiness-group.com/schedule.html',
             5027: 'https://www.happiness-dream.com/happiness/schedule.html',
             8754: 'http://www.yuki-soapland.com/companion/schedule.php',
             9754: 'https://yoshiwara.happiness-group.com/schedule.html',

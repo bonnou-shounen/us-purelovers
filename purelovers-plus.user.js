@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        purelovers-plus
-// @version     0.0.12
+// @version     0.0.13
 // @match       https://www.purelovers.com/*
 // ==/UserScript==
 
@@ -38,6 +38,7 @@
             10238: 'https://www.cityheaven.net/tokyo/A1317/A131703/b-otome/attend/',
             12499: 'https://www.dream-fukuoka.com/schedule.html',
             13081: 'https://www.clubheart-dx.jp/schedule.html',
+            18040: 'https://sapporo.happiness-group.com/schedule.html',
         }
         const os = table[location.pathname.match(/\/shop\/(\d+)/)[1] - 0]
         if (os) {

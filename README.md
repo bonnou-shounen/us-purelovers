@@ -1,6 +1,6 @@
 # us-purelovers
 
-userscript for [purlovers](https://www.purelovers.com)
+userscript for [purelovers](https://purelovers.com)
 
 ## install
 

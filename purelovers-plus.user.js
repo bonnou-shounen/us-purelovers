@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        purelovers-plus
-// @version     0.0.13
-// @match       https://www.purelovers.com/*
+// @version     0.1.1
+// @match       https://purelovers.com/*
 // ==/UserScript==
 
 (function() {
@@ -14,16 +14,17 @@
     }
 
     // 出勤情報のリンクを作る
-    const anchors = document.getElementsByClassName('pureHeader_btn')
-    if (anchors.length > 0) {
-        const divsroot = anchors[0].parentNode.parentNode
-        const schediv = document.createElement('div')
+    const divsroot = document.querySelector('.k_header-body div.k_row-grid--xsmall')
+    if (divsroot) {
+        const schediv = divsroot.children[0].cloneNode(true)
+        const anchor = schediv.querySelector('a')
+        anchor.setAttribute('href', 'https://purelovers.com/user/favorite-girl-schedule/')
+        anchor.innerHTML = anchor.innerHTML.replace('キープ', '出勤情報')
         divsroot.insertBefore(schediv, divsroot.children[1])
-        schediv.outerHTML = '<div class="pureHeader_col"><a href="https://www.purelovers.com/user/favorite-girl-schedule/" class="pureHeader_btn"><i class="pureHeader_btn-icon zmdi zmdi-account-calendar" style="font-size: 20px"></i><span class="pureHeader_btn-text">出勤情報</span></a></div>'
     }
 
     // 店名をオフィシャルサイトへのリンクにする
-    const sn = document.getElementById('shopName')
+    const sn = document.querySelector('.k_globalInforShop h1')
     if (sn) {
         const table = {
             568: 'https://www.seyten.com/schedule/',
@@ -42,26 +43,15 @@
         }
         const os = table[location.pathname.match(/\/shop\/(\d+)/)[1] - 0]
         if (os) {
-            sn.outerHTML = '<a href="' + os + '" target="_blank" style="text-decoration: none; border-bottom: solid 1px #FF0066;">' + sn.outerHTML + '</a>'
+            sn.innerHTML = '<a href="' + os + '" target="_blank" class="k_pink--text k_text-hover--blue-accent-4">' + sn.innerHTML + '</a>'
         }
     }
 
-   // メール中のURIをリンクにする
-   const mails = document.getElementsByClassName('mailLetter')
-   if (mails.length > 0) {
-       mails[0].innerHTML = mails[0].innerHTML.replace(/https:\/\/[-a-z0-9./]+/g, '<a href="$&">$&</a>')
-   }
-
-    // お気に入りの出勤情報にて同じキャストが表示されるバグに対応
-    if (location.pathname.match(/\/favorite-girl-schedule\//)) {
-        const dup = {}
-        const casts = document.getElementsByClassName('myGirlList')[0].children
-        Array.prototype.slice.call(casts).forEach(function(cast) {
-            const href = cast.getElementsByClassName('bold')[0].getAttribute('href')
-            if (dup[href]) {
-                cast.remove()
-            }
-            dup[href] = 1
-        })
+    // メール中のURIをリンクにする
+    if (location.pathname.match(/\/mail-receive-detail\//)) {
+        const mb = document.querySelector('p.k_mt-4')
+        if (mb) {
+            mb.innerHTML = mb.innerHTML.replace(/https:\/\/[-a-z0-9./]+/g, '<a href="$&" class="k_pink--text k_text-hover--blue-accent-4">$&</a>')
+        }
     }
 })()

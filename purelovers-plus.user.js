@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        purelovers-plus
-// @version     0.1.1
+// @version     0.1.3
 // @match       https://purelovers.com/*
 // ==/UserScript==
 

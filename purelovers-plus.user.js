@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        purelovers-plus
-// @version     0.1.3
+// @version     0.1.5
 // @match       https://purelovers.com/*
 // ==/UserScript==
 
@@ -16,11 +16,12 @@
     // 出勤情報のリンクを作る
     const divsroot = document.querySelector('.k_header-body div.k_row-grid--xsmall')
     if (divsroot) {
-        const schediv = divsroot.children[0].cloneNode(true)
+        document.querySelector('.k_header-body div.k_row').children[1].remove() // スペース確保
+        const schediv = divsroot.children[1].cloneNode(true)
         const anchor = schediv.querySelector('a')
         anchor.setAttribute('href', 'https://purelovers.com/user/favorite-girl-schedule/')
         anchor.innerHTML = anchor.innerHTML.replace('キープ', '出勤情報')
-        divsroot.insertBefore(schediv, divsroot.children[1])
+        divsroot.insertBefore(schediv, divsroot.children[2])
     }
 
     // 店名をオフィシャルサイトへのリンクにする
@@ -53,5 +54,23 @@
         if (mb) {
             mb.innerHTML = mb.innerHTML.replace(/https:\/\/[-a-z0-9./]+/g, '<a href="$&" class="k_pink--text k_text-hover--blue-accent-4">$&</a>')
         }
+    }
+
+    // 前へ 一覧へ 次へ を jkl で
+    const navitems = document.querySelectorAll('nav ul.k_list-grid--small span.k_text')
+    if (navitems.length == 3) {
+        document.addEventListener('keydown', function (e) {
+            switch (e.which) {
+                case 74:
+                    navitems[0].click()
+                    break
+                case 75:
+                    navitems[1].click()
+                    break
+                case 76:
+                    navitems[2].click()
+                    break
+            }
+        }, false);
     }
 })()
